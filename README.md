@@ -1,5 +1,5 @@
 # ImageDrawWithLines
-Create artistic looking photos from existing photos.
+Create artistic looking photos from existing source.
 
 ## The following steps needs to be done in this order:
 
