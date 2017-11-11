@@ -19,15 +19,22 @@ import java.util.concurrent.TimeUnit;
 - if it's closer in color to the source image than image2, copy image1 to image2; if not, copy image2 to image1 and continue drawing more random shapes and comparing
 - post the results and bits of code
 */
-public class ImageQuantization{
+public class ImageDrawWithLines{
 	
 	public static void main(String args[]){
 	
 		BufferedImage img = null;
         int[][] simpleImage;
 		
+
+        
 		try{
-			img = ImageIO.read(new File("penguin.jpg"));
+            if(args.length == 0){
+                System.out.println("No input arguments!");
+                return;
+            }
+            
+			img = ImageIO.read(new File(args[0]));
             
 			JFrame window = new JFrame();
 			window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
