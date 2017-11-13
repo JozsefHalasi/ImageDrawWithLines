@@ -62,8 +62,8 @@ public class ImageDrawWithLines{
                 //System.out.println(oneMillion);
 			}
             long endTime = System.currentTimeMillis();
-            long timeSpent = endTime - startTime;
-            System.out.println("Total time: " + timeSpent);
+            double timeSpent = (endTime - startTime) / 60000;
+            System.out.println("Total minutes spent: " + timeSpent);
         }catch(IOException e){
             e.printStackTrace();
         }
