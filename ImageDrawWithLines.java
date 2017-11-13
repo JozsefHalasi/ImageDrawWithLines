@@ -11,13 +11,14 @@ import java.util.concurrent.TimeUnit;
 
 
 /**
-- load an image (source image)
-- get a list of all the colors in the source image
-- create 2 blank images (image1 and image2)
-- draw a random polygon or circle on image1 using a random color from source image
-- compare image1 to the source image
-- if it's closer in color to the source image than image2, copy image1 to image2; if not, copy image2 to image1 and continue drawing more random shapes and comparing
-- post the results and bits of code
+* @param input photo name
+*
+* - load an image (source image)
+* - get a list of all the colors in the source image
+* - create 2 blank images (image1 and image2)
+* - draw a random polygon or circle on image1 using a random color from source image
+* - compare image1 to the source image
+* - if it's closer in color to the source image than image2, copy image1 to image2; if not, copy image2 to image1 and continue drawing more random shapes and comparing
 */
 public class ImageDrawWithLines{
 	
@@ -25,8 +26,6 @@ public class ImageDrawWithLines{
 	
 		BufferedImage img = null;
         int[][] simpleImage;
-		
-
         
 		try{
             if(args.length == 0){
@@ -38,7 +37,7 @@ public class ImageDrawWithLines{
             
 			JFrame window = new JFrame();
 			window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			window.setBounds(400, 400, img.getWidth(), img.getHeight());
+			window.setBounds(0, 0, img.getWidth(), img.getHeight());
 
 			Set<Integer> set = new TreeSet<Integer>();
             simpleImage = new int[img.getWidth()][img.getHeight()];
@@ -50,13 +49,21 @@ public class ImageDrawWithLines{
 			}
 			
 			myWindow w = new myWindow(img, set, simpleImage);
+            w.setSize(img.getWidth(), img.getHeight());
 			window.getContentPane().add(w);
 			window.setVisible(true);
-			while(true){
+            int oneMillion = 0;
+            long startTime = System.currentTimeMillis();
+			while(oneMillion < 1000000){
+                oneMillion++;
 				w.drawLine();
 				window.invalidate();
 				window.repaint();
+                //System.out.println(oneMillion);
 			}
+            long endTime = System.currentTimeMillis();
+            long timeSpent = endTime - startTime;
+            System.out.println("Total time: " + timeSpent);
         }catch(IOException e){
             e.printStackTrace();
         }
