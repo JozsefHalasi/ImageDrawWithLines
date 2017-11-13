@@ -61,8 +61,8 @@ public class ImageDrawWithLines{
 				window.repaint();
                 if(oneMillion % 10000 == 0) {
                     long now = System.currentTimeMillis();
-                    double timeSpent10k = (now - startTime) / 60000;
-                    System.out.println("Time spent 10k: " + timeSpent10k);
+                    double timeSpent10k = (now - startTime) / 1000;
+                    System.out.println("Seconds spent 10k: " + timeSpent10k);
                 }
 			}
             long endTime = System.currentTimeMillis();
