@@ -59,7 +59,11 @@ public class ImageDrawWithLines{
 				w.drawLine();
 				window.invalidate();
 				window.repaint();
-                //System.out.println(oneMillion);
+                if(oneMillion % 10000 == 0) {
+                    long now = System.currentTimeMillis();
+                    double timeSpent10k = (now - startTime) / 60000;
+                    System.out.println("Time spent 10k: " + timeSpent10k);
+                }
 			}
             long endTime = System.currentTimeMillis();
             double timeSpent = (endTime - startTime) / 60000;
@@ -139,6 +143,15 @@ class myWindow extends JPanel{
 
 		return Sum;
 	}
+    
+    public double tavolsag(int a, int b){
+        Color aC = new Color(a);
+        Color bC = new Color(b);
+        
+        return Math.sqrt(((aC.getRed() - bC.getRed())*(aC.getRed() - bC.getRed()))+
+                         ((aC.getGreen() - bC.getGreen())*(aC.getGreen() - bC.getGreen()))+
+                         ((aC.getBlue() - bC.getBlue())*(aC.getBlue() - bC.getBlue())));
+    }
 
 	public BufferedImage createBufferedImage(BufferedImage image) {
           ColorModel cm = image.getColorModel();
@@ -156,11 +169,15 @@ class myWindow extends JPanel{
 		int negyed = rn.nextInt(7);
 		int color = getRandomColor();
 		
+        int sumKep1 = 0;
+        int sumUj = 0;
+        
 		switch(negyed){
 			case 0:
 				for(int i = 0; i < length; i++){
 					if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
-					kep1[(int)x][(int)y] = color;
+                    sumUj+= tavolsag(color, eredeti[(int)x][(int)y]);
+                    sumKep1+= tavolsag(kep1[(int)x][(int)y], eredeti[(int)x][(int)y]);
 					y += meredek;
 					x += 1;
 				}
@@ -168,7 +185,8 @@ class myWindow extends JPanel{
 			case 1:
 				for(int i = 0; i < length; i++){
 					if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
-					kep1[(int)x][(int)y] = color;
+                    sumUj+= tavolsag(color, eredeti[(int)x][(int)y]);
+                    sumKep1+= tavolsag(kep1[(int)x][(int)y], eredeti[(int)x][(int)y]);
 					x += meredek;
 					y += 1;
 				}
@@ -176,7 +194,8 @@ class myWindow extends JPanel{
 			case 2:
 				for(int i = 0; i < length; i++){
 					if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
-					kep1[(int)x][(int)y] = color;
+                    sumUj+= tavolsag(color, eredeti[(int)x][(int)y]);
+                    sumKep1+= tavolsag(kep1[(int)x][(int)y], eredeti[(int)x][(int)y]);
 					y -= meredek;
 					x += 1;
 				}
@@ -184,7 +203,8 @@ class myWindow extends JPanel{
 			case 3:
 				for(int i = 0; i < length; i++){
 					if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
-					kep1[(int)x][(int)y] = color;
+                    sumUj+= tavolsag(color, eredeti[(int)x][(int)y]);
+                    sumKep1+= tavolsag(kep1[(int)x][(int)y], eredeti[(int)x][(int)y]);
 					x -= meredek;
 					y += 1;
 				}
@@ -192,7 +212,8 @@ class myWindow extends JPanel{
 			case 4:
 				for(int i = 0; i < length; i++){
 					if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
-					kep1[(int)x][(int)y] = color;
+                    sumUj+= tavolsag(color, eredeti[(int)x][(int)y]);
+                    sumKep1+= tavolsag(kep1[(int)x][(int)y], eredeti[(int)x][(int)y]);
 					y += meredek;
 					x -= 1;
 				}
@@ -200,7 +221,8 @@ class myWindow extends JPanel{
 			case 5:
 				for(int i = 0; i < length; i++){
 					if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
-					kep1[(int)x][(int)y] = color;
+                    sumUj+= tavolsag(color, eredeti[(int)x][(int)y]);
+                    sumKep1+= tavolsag(kep1[(int)x][(int)y], eredeti[(int)x][(int)y]);
 					x += meredek;
 					y -= 1;
 				}
@@ -208,7 +230,8 @@ class myWindow extends JPanel{
 			case 6:
 				for(int i = 0; i < length; i++){
 					if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
-					kep1[(int)x][(int)y] = color;
+                    sumUj+= tavolsag(color, eredeti[(int)x][(int)y]);
+                    sumKep1+= tavolsag(kep1[(int)x][(int)y], eredeti[(int)x][(int)y]);
 					y -= meredek;
 					x -= 1;
 				}
@@ -216,12 +239,83 @@ class myWindow extends JPanel{
 			default:
 				for(int i = 0; i < length; i++){
 					if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
-					kep1[(int)x][(int)y] = color;
+                    sumUj+= tavolsag(color, eredeti[(int)x][(int)y]);
+                    sumKep1+= tavolsag(kep1[(int)x][(int)y], eredeti[(int)x][(int)y]);
 					x -= meredek;
 					y -= 1;
 				}
 				break;
 		}
+        if(sumUj > sumKep1) return;
+        
+        switch(negyed){
+            case 0:
+                for(int i = 0; i < length; i++){
+                    if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
+                    kep1[(int)x][(int)y] = color;
+                    y += meredek;
+                    x += 1;
+                }
+                break;
+            case 1:
+                for(int i = 0; i < length; i++){
+                    if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
+                    kep1[(int)x][(int)y] = color;
+                    x += meredek;
+                    y += 1;
+                }
+                break;
+            case 2:
+                for(int i = 0; i < length; i++){
+                    if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
+                    kep1[(int)x][(int)y] = color;
+                    y -= meredek;
+                    x += 1;
+                }
+                break;
+            case 3:
+                for(int i = 0; i < length; i++){
+                    if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
+                    kep1[(int)x][(int)y] = color;
+                    x -= meredek;
+                    y += 1;
+                }
+                break;
+            case 4:
+                for(int i = 0; i < length; i++){
+                    if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
+                    kep1[(int)x][(int)y] = color;
+                    y += meredek;
+                    x -= 1;
+                }
+                break;
+            case 5:
+                for(int i = 0; i < length; i++){
+                    if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
+                    kep1[(int)x][(int)y] = color;
+                    x += meredek;
+                    y -= 1;
+                }
+                break;
+            case 6:
+                for(int i = 0; i < length; i++){
+                    if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
+                    kep1[(int)x][(int)y] = color;
+                    y -= meredek;
+                    x -= 1;
+                }
+                break;
+            default:
+                for(int i = 0; i < length; i++){
+                    if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
+                    kep1[(int)x][(int)y] = color;
+                    x -= meredek;
+                    y -= 1;
+                }
+                break;
+        }
+        /*
+        
         //System.out.println(tavolsag(eredeti, kep1));
         //System.out.println(tavolsag(eredeti, kep2));
 		if(tavolsag(eredeti, kep1) > tavolsag(eredeti, kep2)){
@@ -241,5 +335,6 @@ class myWindow extends JPanel{
                 }
             }
 		}
+         */
 	}
 }
