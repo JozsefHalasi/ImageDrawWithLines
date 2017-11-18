@@ -9,7 +9,6 @@ import javax.swing.JComponent;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-
 /**
 * @author Jozsef Halasi
 *
@@ -19,9 +18,9 @@ import java.util.concurrent.TimeUnit;
 *
 * - load an image (source image)
 * - get a list of all the colors in the source image
-* - create 2 blank images (image1 and image2)
-* - draw a random polygon or circle on image1 using a random color from source image
-* - compare image1 to the source image
+* - create 1 new blank image
+* - draw a random polygon or circle on image using a random color from source image
+* - compare image to the source image
 * - if it's closer in color to the source image than image2, copy image1 to image2; if not, copy image2 to image1 and continue drawing more random shapes and comparing
 */
 public class ImageDrawWithLines{
@@ -73,10 +72,10 @@ public class ImageDrawWithLines{
                     long now = System.currentTimeMillis();
                     double timeSpent10k = (now - startTime) / 1000;
                     print("Seconds spent 10k: " + timeSpent10k);
-                    ImageIO.write(img, "jpg", new File(output));
+                    ImageIO.write(w.drawImage, "jpg", new File(output));
                 }
 			}
-            ImageIO.write(img, "jpg", new File(output));
+            ImageIO.write(w.drawImage, "jpg", new File(output));
             
             long endTime = System.currentTimeMillis();
             double timeSpent = (endTime - startTime) / 60000;
@@ -129,8 +128,7 @@ class myWindow extends JPanel{
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-        g.drawImage(originalImage, 0, 0, null);
-		//g.drawImage(drawImage, 0, 0, null);
+        g.drawImage(drawImage, 0, 0, null);
 	}
 	
 	public int getRandomColor(){
@@ -157,7 +155,7 @@ class myWindow extends JPanel{
 	
 	public void drawLine(){
 		Random rn = new Random();
-		int length = 13;
+		int length = 5;
 		double x = rn.nextInt(imgWidth);
 		double y = rn.nextInt(imgHeight);
 		double meredek = rn.nextDouble();
@@ -241,14 +239,14 @@ class myWindow extends JPanel{
 				}
 				break;
 		}
-        System.out.println(sumUj + " " + sumOld);
+        
         if(sumUj > sumOld) return;
-        System.out.println("write");
+        
         switch(negyed){
             case 0:
                 for(int i = 0; i < length; i++){
                     if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
-                    originalImage.setRGB((int)x, (int)y, color);
+                    drawImage.setRGB((int)x, (int)y, color);
                     y += meredek;
                     x += 1;
                 }
@@ -256,7 +254,7 @@ class myWindow extends JPanel{
             case 1:
                 for(int i = 0; i < length; i++){
                     if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
-                    originalImage.setRGB((int)x, (int)y, color);
+                    drawImage.setRGB((int)x, (int)y, color);
                     x += meredek;
                     y += 1;
                 }
@@ -264,7 +262,7 @@ class myWindow extends JPanel{
             case 2:
                 for(int i = 0; i < length; i++){
                     if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
-                    originalImage.setRGB((int)x, (int)y, color);
+                    drawImage.setRGB((int)x, (int)y, color);
                     y -= meredek;
                     x += 1;
                 }
@@ -272,7 +270,7 @@ class myWindow extends JPanel{
             case 3:
                 for(int i = 0; i < length; i++){
                     if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
-                    originalImage.setRGB((int)x, (int)y, color);
+                    drawImage.setRGB((int)x, (int)y, color);
                     x -= meredek;
                     y += 1;
                 }
@@ -280,7 +278,7 @@ class myWindow extends JPanel{
             case 4:
                 for(int i = 0; i < length; i++){
                     if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
-                    originalImage.setRGB((int)x, (int)y, color);
+                    drawImage.setRGB((int)x, (int)y, color);
                     y += meredek;
                     x -= 1;
                 }
@@ -288,7 +286,7 @@ class myWindow extends JPanel{
             case 5:
                 for(int i = 0; i < length; i++){
                     if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
-                    originalImage.setRGB((int)x, (int)y, color);
+                    drawImage.setRGB((int)x, (int)y, color);
                     x += meredek;
                     y -= 1;
                 }
@@ -296,7 +294,7 @@ class myWindow extends JPanel{
             case 6:
                 for(int i = 0; i < length; i++){
                     if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
-                    originalImage.setRGB((int)x, (int)y, color);
+                    drawImage.setRGB((int)x, (int)y, color);
                     y -= meredek;
                     x -= 1;
                 }
@@ -304,7 +302,7 @@ class myWindow extends JPanel{
             default:
                 for(int i = 0; i < length; i++){
                     if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
-                    originalImage.setRGB((int)x, (int)y, color);
+                    drawImage.setRGB((int)x, (int)y, color);
                     x -= meredek;
                     y -= 1;
                 }
