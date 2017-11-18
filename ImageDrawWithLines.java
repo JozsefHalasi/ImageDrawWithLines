@@ -113,7 +113,7 @@ class myWindow extends JPanel{
 	public myWindow(BufferedImage img, Set<Integer> map){
 		super();
         this.originalImage = img;
-		this.drawImage = createBufferedImage(img);
+		this.drawImage = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
 		this.map = map;
 		this.imgHeight = img.getHeight();
 		this.imgWidth = img.getWidth();
@@ -129,7 +129,8 @@ class myWindow extends JPanel{
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		g.drawImage(drawImage, 0, 0, null);
+        g.drawImage(originalImage, 0, 0, null);
+		//g.drawImage(drawImage, 0, 0, null);
 	}
 	
 	public int getRandomColor(){
@@ -240,8 +241,9 @@ class myWindow extends JPanel{
 				}
 				break;
 		}
+        System.out.println(sumUj + " " + sumOld);
         if(sumUj > sumOld) return;
-        
+        System.out.println("write");
         switch(negyed){
             case 0:
                 for(int i = 0; i < length; i++){
