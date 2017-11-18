@@ -11,7 +11,11 @@ import java.util.concurrent.TimeUnit;
 
 
 /**
-* @param input photo name
+* @author Jozsef Halasi
+*
+* @param source photo name
+* @param output photo name
+* @param iteration limit
 *
 * - load an image (source image)
 * - get a list of all the colors in the source image
@@ -26,6 +30,8 @@ public class ImageDrawWithLines{
 	
 		BufferedImage img = null;
         int[][] simpleImage;
+        final String output;
+        final int limit;
         
 		try{
             if(args.length == 0){
@@ -33,10 +39,12 @@ public class ImageDrawWithLines{
                 return;
             }
             
-			img = ImageIO.read(new File(args[0]));
-            
+            img = ImageIO.read(new File(args[0]));
+            output = args[1];
+            limit = Integer.parseInt(args[2]);
+
 			JFrame window = new JFrame();
-			window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			window.setBounds(0, 0, img.getWidth(), img.getHeight());
 
 			Set<Integer> set = new TreeSet<Integer>();
@@ -52,26 +60,44 @@ public class ImageDrawWithLines{
             w.setSize(img.getWidth(), img.getHeight());
 			window.getContentPane().add(w);
 			window.setVisible(true);
-            int oneMillion = 0;
+            
+            int counter = 0;
             long startTime = System.currentTimeMillis();
-			while(oneMillion < 1000000){
-                oneMillion++;
+            print("Start time: " + new Date().toString());
+            
+			while(counter < limit){
+                counter++;
 				w.drawLine();
 				window.invalidate();
 				window.repaint();
-                if(oneMillion % 10000 == 0) {
+                if(counter % 10000 == 0) {
                     long now = System.currentTimeMillis();
                     double timeSpent10k = (now - startTime) / 1000;
-                    System.out.println("Seconds spent 10k: " + timeSpent10k);
+                    print("Seconds spent 10k: " + timeSpent10k);
+                    ImageIO.write(img, "jpg", new File(output));
                 }
 			}
+            
             long endTime = System.currentTimeMillis();
             double timeSpent = (endTime - startTime) / 60000;
-            System.out.println("Total minutes spent: " + timeSpent);
+            print("Total minutes spent: " + timeSpent);
+            window.dispose();
+            return;
+            
         }catch(IOException e){
             e.printStackTrace();
         }
 	}
+    public static void print(String text){
+        try{
+            BufferedWriter writer = new BufferedWriter(new FileWriter("log.txt", true));
+            writer.append(text + System.getProperty("line.separator"));
+            writer.flush();
+            writer.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
 }
 
 class myWindow extends JPanel{
