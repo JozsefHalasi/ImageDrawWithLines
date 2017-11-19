@@ -65,7 +65,8 @@ public class ImageDrawWithLines{
             
 			while(counter < limit){
                 counter++;
-				w.drawLine();
+				w.drawCircle();
+				//w.drawLine();
 				window.invalidate();
 				window.repaint();
                 if(counter % 10000 == 0) {
@@ -152,6 +153,55 @@ class myWindow extends JPanel{
           WritableRaster raster = image.copyData(image.getRaster());
           return new BufferedImage(cm, raster, premultiplied, null);
     }
+	
+	public void drawCircle(){
+		Random rn = new Random();
+		int length = 40;
+		double x = rn.nextInt(imgWidth);
+		double y = rn.nextInt(imgHeight);
+		//double meredek = rn.nextDouble();
+		//int negyed = rn.nextInt(7);
+		int color = getRandomColor();
+		
+        int sumOld = 0;
+        int sumUj = 0;		
+		
+					int korX = length;
+					int korY = 0;
+					int r = length;
+				for(int i = length; i >= 0; i-- , korX--){
+					//if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
+					
+
+					
+					
+					korY = (int)Math.sqrt(r*r-korX*korX);
+					if(korY > korX) break;
+					if((int)(y+korY) > imgHeight-1 || (int)(y+korY) < 0 || (int)(x+korX) > imgWidth-1 || (int)(x+korX) < 0) break;
+					drawImage.setRGB((int)(x+korX), (int)(y+korY), color);
+					if((int)(x+korX) > imgHeight-1 || (int)(x+korX) < 0 || (int)(y+korY) > imgWidth-1 || (int)(y+korY) < 0) break;
+					drawImage.setRGB((int)(y+korY), (int)(x+korX), color);
+					
+					if((int)(y-korY) > imgHeight-1 || (int)(y-korY) < 0 || (int)(x+korX) > imgWidth-1 || (int)(x+korX) < 0) break;
+					drawImage.setRGB((int)(x+korX), (int)(y-korY), color);
+					if((int)(x-korX) > imgHeight-1 || (int)(x-korX) < 0 || (int)(y+korY) > imgWidth-1 || (int)(y+korY) < 0) break;
+					drawImage.setRGB((int)(y+korY), (int)(x-korX), color);
+					
+					
+					if((int)(y-korY) > imgHeight-1 || (int)(y-korY) < 0 || (int)(x+korX) > imgWidth-1 || (int)(x+korX) < 0) break;
+					drawImage.setRGB((int)(x-korX), (int)(y+korY), color);
+					if((int)(x-korX) > imgHeight-1 || (int)(x-korX) < 0 || (int)(y+korY) > imgWidth-1 || (int)(y+korY) < 0) break;
+					drawImage.setRGB((int)(y-korY), (int)(x+korX), color);
+					
+					if((int)(y-korY) > imgHeight-1 || (int)(y-korY) < 0 || (int)(x-korX) > imgWidth-1 || (int)(x-korX) < 0) break;
+					drawImage.setRGB((int)(x-korX), (int)(y-korY), color);
+					if((int)(x-korX) > imgHeight-1 || (int)(x-korX) < 0 || (int)(y-korY) > imgWidth-1 || (int)(y-korY) < 0) break;
+					drawImage.setRGB((int)(y-korY), (int)(x-korX), color);					
+				}
+
+		
+		
+	}
 	
 	public void drawLine(){
 		Random rn = new Random();
