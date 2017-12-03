@@ -226,6 +226,9 @@ class myWindow extends JPanel{
 			// draw 1
 			if(x+korX > imgWidth-1 || y+korY > imgHeight-1) continue;
 			drawImage.setRGB(x+korX, y+korY, color);
+			for(int j = korY; j >= 0; j--){
+				drawImage.setRGB(x+korX, y+j, color);
+			}
 			// draw 2
 			if(x+korY > imgWidth-1 || y+korX > imgHeight-1) continue;
 			drawImage.setRGB(x+korY, y+korX, color);
