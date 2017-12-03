@@ -157,8 +157,8 @@ class myWindow extends JPanel{
 	public void drawCircle(){
 		Random rn = new Random();
 		int length = 40;
-		double x = rn.nextInt(imgWidth);
-		double y = rn.nextInt(imgHeight);
+		int x = rn.nextInt(imgWidth);
+		int y = rn.nextInt(imgHeight);
 		//double meredek = rn.nextDouble();
 		//int negyed = rn.nextInt(7);
 		int color = getRandomColor();
@@ -166,41 +166,44 @@ class myWindow extends JPanel{
         int sumOld = 0;
         int sumUj = 0;		
 		
-					int korX = length;
+					int korX = 0;
 					int korY = 0;
 					int r = length;
-				for(int i = length; i >= 0; i-- , korX--){
-					//if(y > imgHeight-1 || y < 0 || x > imgWidth-1 || x < 0) break;
 					
-
+				for(int i = 0; i <= r; i++ , korX++){
+					// calculate Y value
+					double valami = Math.sqrt(r*r-korX*korX);
+					// round Y value
+					korY = (int) valami;
+					if(valami%1 > 0.5) korY++;
+					// calculate only the first of 8 value
+					if((korX) > (korY)) break;
+					// draw 1
+					if(x+korX > imgWidth-1 || y+korY > imgHeight-1) continue;
+					drawImage.setRGB(x+korX, y+korY, color);
+					// draw 2
+					if(x+korY > imgWidth-1 || y+korX > imgHeight-1) continue;
+					drawImage.setRGB(x+korY, y+korX, color);
+					// draw 3
+					if(x-korX < 0 || y+korY > imgHeight-1) continue;
+					drawImage.setRGB(x-korX, y+korY, color);
+					// draw 4
+					if(x-korY < 0 || y+korX > imgHeight-1) continue;
+					drawImage.setRGB(x-korY, y+korX, color);
 					
-					
-					korY = (int)Math.sqrt(r*r-korX*korX);
-					if(korY > korX) break;
-					if((int)(y+korY) > imgHeight-1 || (int)(y+korY) < 0 || (int)(x+korX) > imgWidth-1 || (int)(x+korX) < 0) break;
-					drawImage.setRGB((int)(x+korX), (int)(y+korY), color);
-					if((int)(x+korX) > imgHeight-1 || (int)(x+korX) < 0 || (int)(y+korY) > imgWidth-1 || (int)(y+korY) < 0) break;
-					drawImage.setRGB((int)(y+korY), (int)(x+korX), color);
-					
-					if((int)(y-korY) > imgHeight-1 || (int)(y-korY) < 0 || (int)(x+korX) > imgWidth-1 || (int)(x+korX) < 0) break;
-					drawImage.setRGB((int)(x+korX), (int)(y-korY), color);
-					if((int)(x-korX) > imgHeight-1 || (int)(x-korX) < 0 || (int)(y+korY) > imgWidth-1 || (int)(y+korY) < 0) break;
-					drawImage.setRGB((int)(y+korY), (int)(x-korX), color);
-					
-					
-					if((int)(y-korY) > imgHeight-1 || (int)(y-korY) < 0 || (int)(x+korX) > imgWidth-1 || (int)(x+korX) < 0) break;
-					drawImage.setRGB((int)(x-korX), (int)(y+korY), color);
-					if((int)(x-korX) > imgHeight-1 || (int)(x-korX) < 0 || (int)(y+korY) > imgWidth-1 || (int)(y+korY) < 0) break;
-					drawImage.setRGB((int)(y-korY), (int)(x+korX), color);
-					
-					if((int)(y-korY) > imgHeight-1 || (int)(y-korY) < 0 || (int)(x-korX) > imgWidth-1 || (int)(x-korX) < 0) break;
-					drawImage.setRGB((int)(x-korX), (int)(y-korY), color);
-					if((int)(x-korX) > imgHeight-1 || (int)(x-korX) < 0 || (int)(y-korY) > imgWidth-1 || (int)(y-korY) < 0) break;
-					drawImage.setRGB((int)(y-korY), (int)(x-korX), color);					
+					// draw 5
+					if(x+korX > imgWidth-1 || y-korY < 0) continue;
+					drawImage.setRGB(x+korX, y-korY, color);
+					// draw 6
+					if(x+korY > imgWidth-1 || y-korX < 0) continue;
+					drawImage.setRGB(x+korY, y-korX, color);
+					// draw 7
+					if(x-korX < 0 || y-korY < 0) continue;
+					drawImage.setRGB(x-korX, y-korY, color);
+					// draw 8
+					if(x-korY < 0 || y-korX < 0) continue;
+					drawImage.setRGB(x-korY, y-korX, color);			
 				}
-
-		
-		
 	}
 	
 	public void drawLine(){
