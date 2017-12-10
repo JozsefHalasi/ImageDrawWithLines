@@ -232,24 +232,45 @@ class myWindow extends JPanel{
 			// draw 2
 			if(x+korY > imgWidth-1 || y+korX > imgHeight-1) continue;
 			drawImage.setRGB(x+korY, y+korX, color);
+			for(int j = korX; j >= 0; j--){
+				drawImage.setRGB(x+korY, y+j, color);
+			}
 			// draw 3
 			if(x-korX < 0 || y+korY > imgHeight-1) continue;
 			drawImage.setRGB(x-korX, y+korY, color);
+			for(int j = korY; j >= 0; j--){
+				drawImage.setRGB(x-korX, y+j, color);
+			}
 			// draw 4
 			if(x-korY < 0 || y+korX > imgHeight-1) continue;
 			drawImage.setRGB(x-korY, y+korX, color);
+			for(int j = korX; j >= 0; j--){
+				drawImage.setRGB(x-korY, y+j, color);
+			}
 			// draw 5
 			if(x+korX > imgWidth-1 || y-korY < 0) continue;
 			drawImage.setRGB(x+korX, y-korY, color);
+			for(int j = korY; j >= 0; j--){
+				drawImage.setRGB(x+korX, y-j, color);
+			}
 			// draw 6
 			if(x+korY > imgWidth-1 || y-korX < 0) continue;
 			drawImage.setRGB(x+korY, y-korX, color);
+			for(int j = korX; j >= 0; j--){
+				drawImage.setRGB(x+korY, y-j, color);
+			}
 			// draw 7
 			if(x-korX < 0 || y-korY < 0) continue;
 			drawImage.setRGB(x-korX, y-korY, color);
+			for(int j = korY; j >= 0; j--){
+				drawImage.setRGB(x-korX, y-j, color);
+			}			
 			// draw 8
 			if(x-korY < 0 || y-korX < 0) continue;
-			drawImage.setRGB(x-korY, y-korX, color);			
+			drawImage.setRGB(x-korY, y-korX, color);
+			for(int j = korX; j >= 0; j--){
+				drawImage.setRGB(x-korY, y-j, color);
+			}			
 		}	
 	}
 	
