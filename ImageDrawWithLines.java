@@ -156,7 +156,7 @@ class myWindow extends JPanel{
 	
 	public void drawCircle(){
 		Random rn = new Random();
-		int length = rn.nextInt(40);
+		int length = rn.nextInt(20);
 		int x = rn.nextInt(imgWidth);
 		int y = rn.nextInt(imgHeight);
 		int color = getRandomColor();
