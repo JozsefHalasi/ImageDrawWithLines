@@ -65,7 +65,8 @@ public class ImageDrawWithLines{
             
 			while(counter < limit){
                 counter++;
-				w.drawLine();
+				w.drawCircle();
+				//w.drawLine();
 				window.invalidate();
 				window.repaint();
                 if(counter % 10000 == 0) {
@@ -152,6 +153,102 @@ class myWindow extends JPanel{
           WritableRaster raster = image.copyData(image.getRaster());
           return new BufferedImage(cm, raster, premultiplied, null);
     }
+	
+	public void drawCircle(){
+		Random rn = new Random();
+		int length = rn.nextInt(40);
+		int x = rn.nextInt(imgWidth);
+		int y = rn.nextInt(imgHeight);
+		int color = getRandomColor();
+		
+        int sumOld = 0;
+        int sumUj = 0;		
+		
+		int korX = 0;
+		int korY = 0;
+		int r = length;
+		
+		for(int i = 0; i <= r; i++ , korX++){
+			// calculate Y value
+			double valami = Math.sqrt(r*r-korX*korX);
+			// round Y value
+			korY = (int) valami;
+			if(valami%1 > 0.5) korY++;
+			// calculate only the first of 8 value
+			if((korX) > (korY)) break;
+			// draw 1
+			if(x+korX > imgWidth-1 || y+korY > imgHeight-1) continue;
+			sumUj+= tavolsag(color, originalImage.getRGB(x+korX, y+korY));
+			sumOld+= tavolsag(drawImage.getRGB(x+korX, y+korY), originalImage.getRGB(x+korX, y+korY));
+			// draw 2
+			if(x+korY > imgWidth-1 || y+korX > imgHeight-1) continue;
+			sumUj+= tavolsag(color, originalImage.getRGB(x+korY, y+korX));
+			sumOld+= tavolsag(drawImage.getRGB(x+korY, y+korX), originalImage.getRGB(x+korY, y+korX));
+			// draw 3
+			if(x-korX < 0 || y+korY > imgHeight-1) continue;
+			sumUj+= tavolsag(color, originalImage.getRGB(x-korX, y+korY));
+			sumOld+= tavolsag(drawImage.getRGB(x-korX, y+korY), originalImage.getRGB(x-korX, y+korY));
+			// draw 4
+			if(x-korY < 0 || y+korX > imgHeight-1) continue;
+			sumUj+= tavolsag(color, originalImage.getRGB(x-korY, y+korX));
+			sumOld+= tavolsag(drawImage.getRGB(x-korY, y+korX), originalImage.getRGB(x-korY, y+korX));
+			// draw 5
+			if(x+korX > imgWidth-1 || y-korY < 0) continue;
+			sumUj+= tavolsag(color, originalImage.getRGB(x+korX, y-korY));
+			sumOld+= tavolsag(drawImage.getRGB(x+korX, y-korY), originalImage.getRGB(x+korX, y-korY));
+			// draw 6
+			if(x+korY > imgWidth-1 || y-korX < 0) continue;
+			sumUj+= tavolsag(color, originalImage.getRGB(x+korY, y-korX));
+			sumOld+= tavolsag(drawImage.getRGB(x+korY, y-korX), originalImage.getRGB(x+korY, y-korX));
+			// draw 7
+			if(x-korX < 0 || y-korY < 0) continue;
+			sumUj+= tavolsag(color, originalImage.getRGB(x-korX, y-korY));
+			sumOld+= tavolsag(drawImage.getRGB(x-korX, y-korY), originalImage.getRGB(x-korX, y-korY));
+			// draw 8
+			if(x-korY < 0 || y-korX < 0) continue;
+			sumUj+= tavolsag(color, originalImage.getRGB(x-korY, y-korX));
+			sumOld+= tavolsag(drawImage.getRGB(x-korY, y-korX), originalImage.getRGB(x-korY, y-korX));		
+		}
+		
+		if(sumUj > sumOld) return;
+		
+		korX = 0;
+		korY = 0;
+		
+		for(int i = 0; i <= r; i++ , korX++){
+			// calculate Y value
+			double valami = Math.sqrt(r*r-korX*korX);
+			// round Y value
+			korY = (int) valami;
+			if(valami%1 > 0.5) korY++;
+			// calculate only the first of 8 value
+			if((korX) > (korY)) break;
+			// draw 1
+			if(x+korX > imgWidth-1 || y+korY > imgHeight-1) continue;
+			drawImage.setRGB(x+korX, y+korY, color);
+			// draw 2
+			if(x+korY > imgWidth-1 || y+korX > imgHeight-1) continue;
+			drawImage.setRGB(x+korY, y+korX, color);
+			// draw 3
+			if(x-korX < 0 || y+korY > imgHeight-1) continue;
+			drawImage.setRGB(x-korX, y+korY, color);
+			// draw 4
+			if(x-korY < 0 || y+korX > imgHeight-1) continue;
+			drawImage.setRGB(x-korY, y+korX, color);
+			// draw 5
+			if(x+korX > imgWidth-1 || y-korY < 0) continue;
+			drawImage.setRGB(x+korX, y-korY, color);
+			// draw 6
+			if(x+korY > imgWidth-1 || y-korX < 0) continue;
+			drawImage.setRGB(x+korY, y-korX, color);
+			// draw 7
+			if(x-korX < 0 || y-korY < 0) continue;
+			drawImage.setRGB(x-korX, y-korY, color);
+			// draw 8
+			if(x-korY < 0 || y-korX < 0) continue;
+			drawImage.setRGB(x-korY, y-korX, color);			
+		}	
+	}
 	
 	public void drawLine(){
 		Random rn = new Random();
