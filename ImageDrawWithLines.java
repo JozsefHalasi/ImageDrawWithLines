@@ -180,34 +180,66 @@ class myWindow extends JPanel{
 			if(x+korX > imgWidth-1 || y+korY > imgHeight-1) continue;
 			sumUj+= tavolsag(color, originalImage.getRGB(x+korX, y+korY));
 			sumOld+= tavolsag(drawImage.getRGB(x+korX, y+korY), originalImage.getRGB(x+korX, y+korY));
+			for(int j = korY; j >= 0; j--){
+				sumUj+= tavolsag(color, originalImage.getRGB(x+korX, y+j));
+				sumOld+= tavolsag(drawImage.getRGB(x+korX, y+j), originalImage.getRGB(x+korX, y+j));
+			}
 			// draw 2
 			if(x+korY > imgWidth-1 || y+korX > imgHeight-1) continue;
 			sumUj+= tavolsag(color, originalImage.getRGB(x+korY, y+korX));
 			sumOld+= tavolsag(drawImage.getRGB(x+korY, y+korX), originalImage.getRGB(x+korY, y+korX));
+			for(int j = korX; j >= 0; j--){
+				sumUj+= tavolsag(color, originalImage.getRGB(x+korY, y+j));
+				sumOld+= tavolsag(drawImage.getRGB(x+korY, y+j), originalImage.getRGB(x+korY, y+j));
+			}
 			// draw 3
 			if(x-korX < 0 || y+korY > imgHeight-1) continue;
 			sumUj+= tavolsag(color, originalImage.getRGB(x-korX, y+korY));
 			sumOld+= tavolsag(drawImage.getRGB(x-korX, y+korY), originalImage.getRGB(x-korX, y+korY));
+			for(int j = korY; j >= 0; j--){
+				sumUj+= tavolsag(color, originalImage.getRGB(x-korX, y+j));
+				sumOld+= tavolsag(drawImage.getRGB(x-korX, y+j), originalImage.getRGB(x-korX, y+j));
+			}
 			// draw 4
 			if(x-korY < 0 || y+korX > imgHeight-1) continue;
 			sumUj+= tavolsag(color, originalImage.getRGB(x-korY, y+korX));
 			sumOld+= tavolsag(drawImage.getRGB(x-korY, y+korX), originalImage.getRGB(x-korY, y+korX));
+			for(int j = korX; j >= 0; j--){
+				sumUj+= tavolsag(color, originalImage.getRGB(x-korY, y+j));
+				sumOld+= tavolsag(drawImage.getRGB(x-korY, y+j), originalImage.getRGB(x-korY, y+j));
+			}
 			// draw 5
 			if(x+korX > imgWidth-1 || y-korY < 0) continue;
 			sumUj+= tavolsag(color, originalImage.getRGB(x+korX, y-korY));
 			sumOld+= tavolsag(drawImage.getRGB(x+korX, y-korY), originalImage.getRGB(x+korX, y-korY));
+			for(int j = korY; j >= 0; j--){	
+				sumUj+= tavolsag(color, originalImage.getRGB(x+korX, y-j));
+				sumOld+= tavolsag(drawImage.getRGB(x+korX, y-j), originalImage.getRGB(x+korX, y-j));
+			}
 			// draw 6
 			if(x+korY > imgWidth-1 || y-korX < 0) continue;
 			sumUj+= tavolsag(color, originalImage.getRGB(x+korY, y-korX));
 			sumOld+= tavolsag(drawImage.getRGB(x+korY, y-korX), originalImage.getRGB(x+korY, y-korX));
+			for(int j = korX; j >= 0; j--){
+				sumUj+= tavolsag(color, originalImage.getRGB(x+korY, y-j));
+				sumOld+= tavolsag(drawImage.getRGB(x+korY, y-j), originalImage.getRGB(x+korY, y-j));
+			}
 			// draw 7
 			if(x-korX < 0 || y-korY < 0) continue;
 			sumUj+= tavolsag(color, originalImage.getRGB(x-korX, y-korY));
 			sumOld+= tavolsag(drawImage.getRGB(x-korX, y-korY), originalImage.getRGB(x-korX, y-korY));
+			for(int j = korY; j >= 0; j--){
+				sumUj+= tavolsag(color, originalImage.getRGB(x-korX, y-j));
+				sumOld+= tavolsag(drawImage.getRGB(x-korX, y-j), originalImage.getRGB(x-korX, y-j));
+			}
 			// draw 8
 			if(x-korY < 0 || y-korX < 0) continue;
 			sumUj+= tavolsag(color, originalImage.getRGB(x-korY, y-korX));
-			sumOld+= tavolsag(drawImage.getRGB(x-korY, y-korX), originalImage.getRGB(x-korY, y-korX));		
+			sumOld+= tavolsag(drawImage.getRGB(x-korY, y-korX), originalImage.getRGB(x-korY, y-korX));	
+			for(int j = korX; j >= 0; j--){
+				sumUj+= tavolsag(color, originalImage.getRGB(x-korY, y-j));
+				sumOld+= tavolsag(drawImage.getRGB(x-korY, y-j), originalImage.getRGB(x-korY, y-j));	
+			}				
 		}
 		
 		if(sumUj > sumOld) return;
