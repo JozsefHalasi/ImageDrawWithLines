@@ -3,10 +3,12 @@ Create artistic looking photos from existing source.
 
 ## Usage
 
-Compile java files:
+### Compile java files:
+
 javac ImageDrawWithLines.java
 
-Run:
+### Run:
+
 java ImageDrawWithLines 'input_image' 'output_image' 'iteration_number'
 
 (log.txt is auto generated)
