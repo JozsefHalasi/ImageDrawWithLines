@@ -1,6 +1,16 @@
 # ImageDrawWithLines
 Create artistic looking photos from existing source.
 
+## Usage
+
+Compile java files:
+javac ImageDrawWithLines.java
+
+Run:
+java ImageDrawWithLines 'input_image' 'output_image' 'iteration_number'
+
+(log.txt is auto generated)
+
 ## The following steps needs to be done in this order:
 
 - load an image (source image)
